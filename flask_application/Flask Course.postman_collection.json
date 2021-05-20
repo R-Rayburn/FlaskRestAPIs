@@ -1,0 +1,151 @@
+{
+	"info": {
+		"_postman_id": "315bf366-e90c-497f-975e-a157e27b3913",
+		"name": "Flask Course",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Section 3",
+			"item": [
+				{
+					"name": "/store",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5005/store",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5005",
+							"path": [
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/store",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Amazon Pro\"\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5005/store",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5005",
+							"path": [
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/store/<name>",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5005/store/Amazon Pro",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5005",
+							"path": [
+								"store",
+								"Amazon Pro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/store/<name>/item",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5005/store/Amazon Pro/item",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5005",
+							"path": [
+								"store",
+								"Amazon Pro",
+								"item"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/store/<name>/item",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Another Item\",\n    \"price\": 45.99\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5005/store/Amazon Pro/item",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5005",
+							"path": [
+								"store",
+								"Amazon Pro",
+								"item"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
