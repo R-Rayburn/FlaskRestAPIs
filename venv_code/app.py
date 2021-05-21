@@ -8,18 +8,16 @@ items = []
 
 class Item(Resource):
     def get(self, name):
-        for item in items:
-            if item['name'] == name:
-                return item
-        return {'item': None, 'message': f'{name} was not found'}, 404
+        item = next(filter(lambda i: i['name'] == name, items), None)
+        return {'item': item}, 200 if item else 404
 
     def post(self, name):
         # get_json params:
         # force -> True means content header doesn't need to be specified
         # silent -> True means it will give you none instead of error
+        if next(filter(lambda i: i['name'] == name, items), None) is not None:
+            return {'message': f'{name} already exists'}, 400
         request_data = request.get_json()
-        if name in [item['name'] for item in items]:
-            return {'message': f'{name} already exists'}, 404
         item = {'name': name, 'price': request_data['price']}
         items.append(item)
         return item, 201
