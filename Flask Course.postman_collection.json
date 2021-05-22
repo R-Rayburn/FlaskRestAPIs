@@ -176,7 +176,13 @@
 					"name": "/item/<name>",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MjE2NDQ0MDYsImlhdCI6MTYyMTY0NDEwNiwibmJmIjoxNjIxNjQ0MTA2LCJpZGVudGl0eSI6MX0.z4sS2svYb3Jy0mWL-WwD7DJaq0r5jOdcpUeqihbFQgQ",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "http://127.0.0.1:5005/item/<name>",
 							"protocol": "http",
@@ -285,6 +291,38 @@
 							]
 						},
 						"description": "This should delete an item uniqely identified by name."
+					},
+					"response": []
+				},
+				{
+					"name": "/auth",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"bob\",\n    \"password\": \"1234\"\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5005/auth",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5005",
+							"path": [
+								"auth"
+							]
+						}
 					},
 					"response": []
 				}
