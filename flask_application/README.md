@@ -50,7 +50,7 @@ REST is Stateless
 
 ## Using virtual environment
 - Install virtualenv with the version of pip you would like
+  - Note: Might need to run pip install under sudo if not root user.
 - Set python version in env by running _virtualevn venv --python=pythonX.X_
 - Activate with source venv/bin/activate
 - deactivate with _deactivate_
-- Note: Might need to run pip install under sudo if not root user.

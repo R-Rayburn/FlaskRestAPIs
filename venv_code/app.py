@@ -1,12 +1,19 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
+from flask_jwt import JWT, jwt_required
+from security import authenticate, identity
 
 app = Flask(__name__)
+# This should be secure when using prod
+app.secret_key = 'Jose'
 api = Api(app)
+jwt = JWT(app, authenticate, identity)  # /auth
+
 items = []
 
 
 class Item(Resource):
+    @jwt_required()
     def get(self, name):
         item = next(filter(lambda i: i['name'] == name, items), None)
         return {'item': item}, 200 if item else 404
