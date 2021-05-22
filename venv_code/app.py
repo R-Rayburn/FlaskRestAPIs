@@ -13,6 +13,9 @@ items = []
 
 
 class Item(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('price', type=float, required=True, help='This field cannot be blank.')
+
     @jwt_required()
     def get(self, name):
         item = next(filter(lambda i: i['name'] == name, items), None)
@@ -24,9 +27,8 @@ class Item(Resource):
         # silent -> True means it will give you none instead of error
         if next(filter(lambda i: i['name'] == name, items), None) is not None:
             return {'message': f'{name} already exists'}, 400
-        parser = reqparse.RequestParser()
-        parser.add_argument('price', type=float, required=True, help='This field cannot be blank.')
-        data = parser.parse_args()
+
+        data = Item.parser.parse_args()
 
         item = {'name': name, 'price': data['price']}
         items.append(item)
@@ -38,9 +40,7 @@ class Item(Resource):
         return {'message': f'{name} deleted'}
 
     def put(self, name):
-        parser = reqparse.RequestParser()
-        parser.add_argument('price', type=float, required=True, help='This field cannot be blank.')
-        data = parser.parse_args()
+        data = Item.parser.parse_args()
 
         item = next(filter(lambda x: x['name'] == name, items), None)
         if item is None:
