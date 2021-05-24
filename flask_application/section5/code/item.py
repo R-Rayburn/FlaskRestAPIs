@@ -13,6 +13,13 @@ class Item(Resource):
 
     @jwt_required()
     def get(self, name):
+        item = self.find_my_name(name)
+        if item:
+            return item
+        return {'message': 'Item not found'}, 404
+
+    @classmethod
+    def find_my_name(cls, name):
         connection = sqlite3.connect('data.db')
         cursor = connection.cursor()
 
@@ -23,39 +30,63 @@ class Item(Resource):
 
         if row:
             return {'item': {'name': row[0], 'price': row[1]}}
-        return {'message': 'Item not found'}, 404
+        return None
 
     def post(self, name):
-        if next(
-                filter(
-                    lambda i: i['name'] == name,
-                    items),
-                None) is not None:
+        if self.find_my_name(name):
             return {'message': f'{name} already exists'}, 400
 
         data = Item.parser.parse_args()
 
         item = {'name': name, 'price': data['price']}
-        items.append(item)
+        connection = sqlite3.connect('data.db')
+        cursor = connection.cursor()
+
+        query = "INSERT INTO items VALUES (?, ?)"
+        cursor.execute(query, (item['name'], item['price'],))
+
+        connection.commit()
+        connection.close()
+
         return item, 201
 
     def delete(self, name):
-        global items
-        items = list(filter(lambda x: x['name'] != name, items))
+        connection = sqlite3.connect('data.db')
+        cursor = connection.cursor()
+
+        query = 'DELETE FROM items WHERE name=?'
+        cursor.execute(query, (name,))
+
+        connection.commit()
+        connection.close()
+
         return {'message': f'{name} deleted'}
 
     def put(self, name):
         data = Item.parser.parse_args()
 
-        item = next(filter(lambda x: x['name'] == name, items), None)
-        if item is None:
-            item = {"name": name, 'price': data['price']}
-            items.append(item)
+        connection = sqlite3.connect('data.db')
+        cursor = connection.cursor()
+
+        if self.find_my_name(name):
+            query = 'UPDATE items SET price=? where name=?'
+            cursor.execute(query, (data['price'], name,))
         else:
-            item.update(data)
-        return item
+            query = 'INSERT INTO items VALUES (?, ?)'
+            cursor.execute(query, (name, data['price'],))
+
+        connection.commit()
+        connection.close()
+
+        return {'name': name, 'price': data['price']}
 
 
 class ItemList(Resource):
     def get(self):
+        connection = sqlite3.connect('data.db')
+        cursor = connection.cursor()
+        query = "SELECT * FROM items"
+        rows = cursor.execute(query)
+        items = [{'name': row[0], 'price': row[1]} for row in rows]
+        connection.close()
         return {'items': items}
