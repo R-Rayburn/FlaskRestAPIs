@@ -540,6 +540,227 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Section 6",
+			"item": [
+				{
+					"name": "/items",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;",
+									"",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/items",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"items"
+							]
+						},
+						"description": "This should return a list of items each in json format"
+					},
+					"response": []
+				},
+				{
+					"name": "/item/<name>",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "JWT {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/item/chair",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"item",
+								"chair"
+							]
+						},
+						"description": "This should return a single specific item by name.\nNo two items should have the same name."
+					},
+					"response": []
+				},
+				{
+					"name": "/item/<name>",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;",
+									"",
+									"tests[\"Status code is 201\"] = responseCode.code === 201;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"price\": 12.99\n}"
+						},
+						"url": {
+							"raw": "{{url}}/item/desk",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"item",
+								"desk"
+							]
+						},
+						"description": "This should create a new item.\nIf the item already exists, it will fail."
+					},
+					"response": []
+				},
+				{
+					"name": "/item/<name>",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"price\": 22.99\n}"
+						},
+						"url": {
+							"raw": "{{url}}/item/<name>",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"item",
+								"<name>"
+							]
+						},
+						"description": "This should create a new item if it doesn't exist.\nIf the item already exists, it will update the item with the new price."
+					},
+					"response": []
+				},
+				{
+					"name": "/item/<name>",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/item/<name>",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"item",
+								"<name>"
+							]
+						},
+						"description": "This should delete an item uniqely identified by name."
+					},
+					"response": []
+				},
+				{
+					"name": "/auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"tests[\"access_token not empty\"] = jsonData.access_token !== undefined",
+									"",
+									"postman.setEnvironmentVariable(\"jwt_token\", jsonData.access_token)",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"bob\",\n    \"password\": \"1234\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/auth",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"bob\",\n    \"password\": \"1234\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
