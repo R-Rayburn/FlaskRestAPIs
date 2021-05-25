@@ -8,6 +8,8 @@ class ItemModel(db.Model):
     name = db.Column(db.String(80))
     price = db.Column(db.Float(precision=2))
 
+    store_id = db.Column(db.Integer, db.ForeignKey('stores.id'))
+
     def __init__(self, name, price):
         self.name = name
         self.price = price
