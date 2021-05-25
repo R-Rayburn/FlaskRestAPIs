@@ -545,6 +545,105 @@
 			"name": "Section 6",
 			"item": [
 				{
+					"name": "/stores",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "JWT {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/stores",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"stores"
+							]
+						},
+						"description": "This should return a single specific item by name.\nNo two items should have the same name."
+					},
+					"response": []
+				},
+				{
+					"name": "/store/<name>",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "JWT {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/store/test",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"store",
+								"test"
+							]
+						},
+						"description": "This should return a single specific item by name.\nNo two items should have the same name."
+					},
+					"response": []
+				},
+				{
+					"name": "/store/<name>",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "JWT {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/store/test2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"store",
+								"test2"
+							]
+						},
+						"description": "This should return a single specific item by name.\nNo two items should have the same name."
+					},
+					"response": []
+				},
+				{
+					"name": "/store/<name>",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "JWT {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/store/test2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"store",
+								"test2"
+							]
+						},
+						"description": "This should return a single specific item by name.\nNo two items should have the same name."
+					},
+					"response": []
+				},
+				{
 					"name": "/items",
 					"event": [
 						{
