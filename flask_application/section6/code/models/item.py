@@ -1,4 +1,4 @@
-from ..db import db
+from db import db
 
 
 class ItemModel(db.Model):
@@ -28,5 +28,5 @@ class ItemModel(db.Model):
         db.session.commit()
 
     @classmethod
-    def find_my_name(cls, name):
+    def find_by_name(cls, name):
         return cls.query.filter_by(name=name).first()
