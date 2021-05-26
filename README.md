@@ -1,6 +1,13 @@
 # FlaskRestAPIs
-Using python and flask to create Rest APIs.
-# Source
+Using the following tools to create REST APIs.
+- Flask
+- Flask-RESTful
+- Flask-JWT
+- Flask-SQLAlchemy
+- Heroku
+- Postman
+
+### Source
 Following video course by Jose Salvatierra on O'Reilly
 
 ---
