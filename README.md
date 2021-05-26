@@ -65,7 +65,7 @@ Following video course by Jose Salvatierra on O'Reilly
  ## Using virtual environment
  - Install virtualenv with the version of pip you would like
    - Note: Might need to run pip install under sudo if not root user.
- - Set python version in env by running _virtualevn venv --python=pythonX.X_
+ - Set python version in env by running _virtualenv venv --python=pythonX.X_
  - Activate with source venv/bin/activate
  - deactivate with _deactivate_
 
@@ -74,7 +74,7 @@ Following video course by Jose Salvatierra on O'Reilly
 
 ### Q: What is Heroku?
 A: Web service that can run code and allow others access to it.
-   It can host many different things.
+   It can host many things.
 
 Heroku uses *Dynos*.
 
