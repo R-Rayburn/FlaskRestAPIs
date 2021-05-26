@@ -78,3 +78,9 @@ Many Dynos can be run at once within Heroku.
 Heroku enables SSL (Secure Socket Layer) so that the
 communication between the client and the server can be
 encrypted
+---
+The Heroku app was created as
+[rayburn-stores-rest-api](https://dashboard.heroku.com/apps/rayburn-stores-rest-api/deploy/github)
+
+Here we can do many things with the app, like deployment.
+
