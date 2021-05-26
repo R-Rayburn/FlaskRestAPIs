@@ -1,12 +1,10 @@
 from flask import Flask
-from flask_jwt import JWT
+from flask_jwt_extended import JWTManager
 from flask_restful import Api
 
 from resources.item import Item, ItemList
 from resources.user import User, UserRegister
 from resources.store import Store, StoreList
-
-from security import authenticate, identity
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
@@ -22,7 +20,7 @@ def create_tables():
     db.create_all()
 
 
-jwt = JWT(app, authenticate, identity)  # /auth
+jwt = JWTManager(app)
 
 api.add_resource(Item, '/item/<string:name>')
 api.add_resource(ItemList, '/items')
