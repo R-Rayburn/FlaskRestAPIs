@@ -1049,7 +1049,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"price\": 12.99\n}"
+							"raw": "{\n    \"price\": 12.99,\n    \"store_id\": 1\n}"
 						},
 						"url": {
 							"raw": "{{url}}/item/desk",
@@ -1097,16 +1097,26 @@
 				{
 					"name": "/item/<name>",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/item/<name>",
+							"raw": "{{url}}/item/desk",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"item",
-								"<name>"
+								"desk"
 							]
 						},
 						"description": "This should delete an item uniqely identified by name."
