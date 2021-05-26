@@ -134,5 +134,5 @@ dmypy.json
 # db files
 *.db
 
-# DS_Store
+# mac added file
 *.DS_Store
