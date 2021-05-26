@@ -25,7 +25,7 @@ class Item(Resource):
         if ItemModel.find_by_name(name):
             return {'message': f'{name} already exists'}, 400
         data = Item.parser.parse_args()
-        item = ItemModel(name, data['price'], data['store_id'])
+        item = ItemModel(name, **data)
         try:
             item.save_to_db()
         except:
@@ -52,4 +52,4 @@ class Item(Resource):
 class ItemList(Resource):
     def get(self):
         # list(map(lambda x: x.json(), ItemModel.query.all()))
-        return {'item': [item.json() for item in ItemModel.query.all()]}
+        return {'item': [item.json() for item in ItemModel.find_all()]}
