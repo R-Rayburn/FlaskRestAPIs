@@ -997,22 +997,26 @@
 				{
 					"name": "/item/<name>",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "JWT {{jwt_token}}",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
-							"raw": "{{url}}/item/chair",
+							"raw": "{{url}}/item/desk",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"item",
-								"chair"
+								"desk"
 							]
 						},
 						"description": "This should return a single specific item by name.\nNo two items should have the same name."
@@ -1110,7 +1114,7 @@
 					"response": []
 				},
 				{
-					"name": "/auth",
+					"name": "/login",
 					"event": [
 						{
 							"listen": "test",
@@ -1141,12 +1145,12 @@
 							"raw": "{\n    \"username\": \"bob\",\n    \"password\": \"1234\"\n}"
 						},
 						"url": {
-							"raw": "{{url}}/auth",
+							"raw": "{{url}}/login",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
-								"auth"
+								"login"
 							]
 						}
 					},
