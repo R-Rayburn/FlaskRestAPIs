@@ -84,3 +84,4 @@ The Heroku app was created as
 
 Here we can do many things with the app, like deployment.
 
+Make sure to download the Heroku Command Line tool as well.
