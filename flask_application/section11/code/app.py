@@ -3,7 +3,7 @@ from flask_jwt_extended import JWTManager
 from flask_restful import Api
 
 from resources.item import Item, ItemList
-from resources.user import User, UserRegister, UserLogin, TokenRefresh
+from resources.user import User, UserRegister, UserLogin, UserLogout, TokenRefresh
 from resources.store import Store, StoreList
 from blacklist import BLACKLIST
 
@@ -35,48 +35,47 @@ def add_claims_to_jwt(identity):
 
 @jwt.token_in_blocklist_loader
 def check_if_token_in_blacklist(header, payload):
-    print(payload['jti'])
     return payload['jti'] in BLACKLIST
 
 
 @jwt.expired_token_loader
 def expired_token_callback():
-    return jsonify({
-        'description': 'The token has expired.',
-        'error': 'token_expired'
-    }), 401
+    return jsonify(
+        description='The token has expired.',
+        error='token_expired'
+    ), 401
 
 
 @jwt.invalid_token_loader
 def invalid_token_callback(error):
-    return jsonify({
-        'description': 'Signature verification failed.',
-        'error': 'invalid_token'
-    }), 401
+    return jsonify(
+        description='Signature verification failed.',
+        error='invalid_token'
+    ), 401
 
 
 @jwt.unauthorized_loader
 def unauthorized_callback():
-    return jsonify({
-        'description': 'Request does not have access token.',
-        'error': 'unauthorized'
-    }), 401
+    return jsonify(
+        description='Request does not have access token.',
+        error='unauthorized'
+    ), 401
 
 
 @jwt.needs_fresh_token_loader
 def needs_fresh_token_callback():
-    return jsonify({
-        'description': 'Token is not fresh.',
-        'error': 'fresh_token_required'
-    }), 401
+    return jsonify(
+        description='Token is not fresh.',
+        error='fresh_token_required'
+    ), 401
 
 
 @jwt.revoked_token_loader
 def revoked_token_callback(header, payload):
-    return jsonify({
-        'description': 'This token has been revoked.',
-        'error': 'revoked_token'
-    }), 401
+    return jsonify(
+        description='This token has been revoked.',
+        error='revoked_token'
+    ), 401
 
 
 api.add_resource(Item, '/item/<string:name>')
@@ -86,6 +85,7 @@ api.add_resource(StoreList, '/stores')
 api.add_resource(User, '/user/<int:user_id>')
 api.add_resource(UserRegister, '/register')
 api.add_resource(UserLogin, '/login')
+api.add_resource(UserLogout, '/logout')
 api.add_resource(TokenRefresh, '/refresh')
 
 # Only run if app.py is ran directly
