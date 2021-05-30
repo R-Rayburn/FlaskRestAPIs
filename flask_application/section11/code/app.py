@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_jwt_extended import JWTManager
 from flask_restful import Api
 
@@ -28,6 +28,46 @@ def add_claims_to_jwt(identity):
     if identity == 1:  # value to check should be read from config or db.
         return {'is_admin': True}
     return {'is_admin': False}
+
+
+@jwt.expired_token_loader
+def expired_token_callback():
+    return jsonify({
+        'description': 'The token has expired.',
+        'error': 'token_expired'
+    }), 401
+
+
+@jwt.invalid_token_loader
+def invalid_token_callback(error):
+    return jsonify({
+        'description': 'Signature verification failed.',
+        'error': 'invalid_token'
+    }), 401
+
+
+@jwt.unauthorized_loader
+def unauthorized_callback():
+    return jsonify({
+        'description': 'Request does not have access token.',
+        'error': 'unauthorized'
+    }), 401
+
+
+@jwt.needs_fresh_token_loader
+def needs_fresh_token_callback():
+    return jsonify({
+        'description': 'Token is not fresh.',
+        'error': 'fresh_token_required'
+    }), 401
+
+
+@jwt.revoked_token_loader
+def revoked_token_callback():
+    return jsonify({
+        'description': 'This token has been revoked.',
+        'error': 'revoked_token'
+    }), 401
 
 
 api.add_resource(Item, '/item/<string:name>')
