@@ -1139,8 +1139,10 @@
 									"var jsonData = JSON.parse(responseBody);",
 									"",
 									"tests[\"access_token not empty\"] = jsonData.access_token !== undefined",
+									"tests[\"refresh_token not empty\"] = jsonData.refresh_token !== undefined",
 									"",
 									"postman.setEnvironmentVariable(\"jwt_token\", jsonData.access_token)",
+									"postman.setEnvironmentVariable(\"refresh_token\", jsonData.refresh_token)",
 									""
 								],
 								"type": "text/javascript"
@@ -1230,6 +1232,49 @@
 							"path": [
 								"user",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/refresh",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"tests[\"access_token not empty\"] = jsonData.access_token !== undefined",
+									"",
+									"postman.setEnvironmentVariable(\"jwt_token\", jsonData.access_token)",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{refresh_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/refresh",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"refresh"
 							]
 						}
 					},
